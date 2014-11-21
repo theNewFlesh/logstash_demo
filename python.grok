@@ -1,0 +1,12 @@
+TRACEBACK (Traceback.*)
+FILEPATH (?:/.*/%{DATA:filename}|%{DATA:filename})
+SCOPE <?\w+>?
+CODE .*
+FILE_LINE (?:File "%{FILEPATH:filepath}", line %{NUMBER:line}, in %{SCOPE:scope}|File "%{FILEPATH:filepath}", line %{NUMBER:line}|File "%{FILEPATH:filepath}")
+ERROR_TYPE (\w*Error)
+ERROR_MESSAGE (.*)
+ERROR %{ERROR_TYPE:error_type}: %{ERROR_MESSAGE:error_message}
+SCOPE_BLOCK (?:.*?%{FILE_LINE:file_line}\n.*?%{SCOPE_LINE:scope_line}\n)
+BODY (?:.*?%{FILE_LINE}\n.*?%{CODE:code}\n)*
+LINES (?:.*\n)*
+TRACEBACK_BLOCK (?:%{TRACEBACK:traceback}\n%{LINES:body}.*?%{ERROR:error})
