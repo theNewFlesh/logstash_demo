@@ -45,3 +45,23 @@ sudo /usr/sbin/redis-server
 # test redis connection
 # /usr/bin/redis-cli -h IP ADDRESS
 # ping
+
+# edit cental.v001.conf IP address
+sudo vim /etc/logstash/conf.d/central.v001.conf
+
+# edit shipper.v001.conf IP address and errors.txt parent directory
+sudo vim /etc/logstash/conf.d/shipper.v001.conf
+
+# start logstash central server
+sudo /usr/share/logstash/bin/logstash --config /etc/logstash/conf.d/central.v001.conf
+
+# start logstash shipper
+sudo /usr/share/logstash/bin/logstash agent --config /etc/logstash/conf.d/shipper.v001.conf
+
+# start kibana web server
+/usr/share/logstash/bin/logstash-web
+
+# open a browser and go to localhost:9292, then click the logstash dashboard link
+
+# demo logstashHandler
+# python python_demo.py IP ADDRESS
